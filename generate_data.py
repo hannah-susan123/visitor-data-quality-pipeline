@@ -238,6 +238,17 @@ def write_daily_loads(bookings, folder, log):
                 "record_id": str(PARTIAL_LOAD_DAY), "detail": "export cut off at 30% of the day's rows"})
 
 
+def combine_daily_loads(folder, out_path):
+    """Stack every daily export into one CSV with only the columns
+    01_load_checks.sql needs, plus the file each row came from."""
+    parts = []
+    for path in sorted(Path(folder).glob("*.csv")):
+        export = pd.read_csv(path, usecols=["export_id", "export_date"])
+        export.insert(0, "source_file", path.name)
+        parts.append(export)
+    pd.concat(parts, ignore_index=True).to_csv(out_path, index=False)
+
+
 def generate(data_dir="data", seed=SEED):
     """Build all CSVs in data_dir. Returns the injected-errors log as a DataFrame."""
     random.seed(seed)
@@ -253,6 +264,7 @@ def generate(data_dir="data", seed=SEED):
     waivers.to_csv(data_dir / "waivers.csv", index=False, date_format="%Y-%m-%d %H:%M:%S")
     feedback.to_csv(data_dir / "feedback.csv", index=False, date_format="%Y-%m-%d %H:%M:%S")
     write_daily_loads(bookings, data_dir / "daily_loads", log)
+    combine_daily_loads(data_dir / "daily_loads", data_dir / "raw_daily_loads.csv")
 
     errors = pd.DataFrame(log)
     errors.to_csv(data_dir / "injected_errors.csv", index=False)

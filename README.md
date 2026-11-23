@@ -152,6 +152,10 @@ Get-ChildItem data\daily_loads\*.csv | ForEach-Object {
 }
 ```
 
+   Simpler option for the console: upload `data/raw_daily_loads.csv` as `raw_daily_loads` instead of
+   the 60 separate files. It stacks every daily export into one file with only the columns
+   `01_load_checks.sql` needs: `source_file:STRING,export_id:STRING,export_date:DATE`.
+
 3. Open each file in `sql/` in the BigQuery console and run it, in order 01 → 04.
    BigQuery shows each query's result separately. From the command line:
    `Get-Content sql\02_data_quality_checks.sql -Raw | bq query --use_legacy_sql=false`
