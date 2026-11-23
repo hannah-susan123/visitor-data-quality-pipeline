@@ -1,0 +1,117 @@
+error_type,table,record_id,detail
+duplicate_booking,bookings,BK-000415,row appears twice
+duplicate_booking,bookings,BK-001571,row appears twice
+duplicate_booking,bookings,BK-000740,row appears twice
+duplicate_booking,bookings,BK-001352,row appears twice
+duplicate_booking,bookings,BK-000969,row appears twice
+duplicate_booking,bookings,BK-000565,row appears twice
+duplicate_booking,bookings,BK-001620,row appears twice
+duplicate_booking,bookings,BK-001462,row appears twice
+duplicate_booking,bookings,BK-000072,row appears twice
+duplicate_booking,bookings,BK-000136,row appears twice
+duplicate_booking,bookings,BK-001082,row appears twice
+duplicate_booking,bookings,BK-000620,row appears twice
+duplicate_booking,bookings,BK-000329,row appears twice
+duplicate_booking,bookings,BK-000184,row appears twice
+duplicate_booking,bookings,BK-001303,row appears twice
+no_signed_waiver,waivers,BK-001267,waiver marked signed = no
+no_signed_waiver,waivers,BK-000176,waiver marked signed = no
+no_signed_waiver,waivers,BK-001440,waiver marked signed = no
+no_signed_waiver,waivers,BK-001558,waiver marked signed = no
+no_signed_waiver,waivers,BK-000164,waiver marked signed = no
+no_signed_waiver,waivers,BK-000389,waiver marked signed = no
+no_signed_waiver,waivers,BK-000693,waiver marked signed = no
+no_signed_waiver,waivers,BK-000970,waiver marked signed = no
+no_signed_waiver,waivers,BK-000155,waiver marked signed = no
+no_signed_waiver,waivers,BK-000804,waiver marked signed = no
+no_signed_waiver,waivers,BK-001250,waiver marked signed = no
+no_signed_waiver,waivers,BK-000426,waiver marked signed = no
+no_signed_waiver,waivers,BK-001605,waiver marked signed = no
+no_signed_waiver,waivers,BK-000069,waiver marked signed = no
+no_signed_waiver,waivers,BK-001207,waiver marked signed = no
+no_signed_waiver,waivers,BK-000653,waiver marked signed = no
+no_signed_waiver,waivers,BK-000410,waiver marked signed = no
+no_signed_waiver,waivers,BK-000081,waiver marked signed = no
+no_signed_waiver,waivers,BK-001371,waiver marked signed = no
+no_signed_waiver,waivers,BK-000039,waiver marked signed = no
+no_signed_waiver,waivers,BK-001064,waiver marked signed = no
+no_signed_waiver,waivers,BK-000555,waiver marked signed = no
+no_signed_waiver,waivers,BK-001331,waiver marked signed = no
+no_signed_waiver,waivers,BK-000400,waiver marked signed = no
+no_signed_waiver,waivers,BK-001247,waiver marked signed = no
+no_signed_waiver,waivers,BK-001725,waiver marked signed = no
+no_signed_waiver,waivers,BK-000661,waiver marked signed = no
+no_signed_waiver,waivers,BK-000355,waiver marked signed = no
+no_signed_waiver,waivers,BK-001025,waiver marked signed = no
+no_signed_waiver,waivers,BK-000326,waiver marked signed = no
+no_signed_waiver,waivers,BK-001242,no waiver row at all
+no_signed_waiver,waivers,BK-001333,no waiver row at all
+no_signed_waiver,waivers,BK-001301,no waiver row at all
+no_signed_waiver,waivers,BK-000561,no waiver row at all
+no_signed_waiver,waivers,BK-000460,no waiver row at all
+no_signed_waiver,waivers,BK-000208,no waiver row at all
+no_signed_waiver,waivers,BK-000279,no waiver row at all
+no_signed_waiver,waivers,BK-000819,no waiver row at all
+no_signed_waiver,waivers,BK-001280,no waiver row at all
+no_signed_waiver,waivers,BK-001274,no waiver row at all
+no_signed_waiver,waivers,BK-000915,no waiver row at all
+no_signed_waiver,waivers,BK-000575,no waiver row at all
+visit_before_booking,bookings,BK-001585,visit_date moved 3 day(s) before booking_date
+visit_before_booking,bookings,BK-000889,visit_date moved 5 day(s) before booking_date
+visit_before_booking,bookings,BK-000902,visit_date moved 5 day(s) before booking_date
+visit_before_booking,bookings,BK-000793,visit_date moved 2 day(s) before booking_date
+visit_before_booking,bookings,BK-001621,visit_date moved 2 day(s) before booking_date
+visit_before_booking,bookings,BK-000018,visit_date moved 2 day(s) before booking_date
+visit_before_booking,bookings,BK-000850,visit_date moved 1 day(s) before booking_date
+visit_before_booking,bookings,BK-001336,visit_date moved 2 day(s) before booking_date
+visit_before_booking,bookings,BK-000771,visit_date moved 2 day(s) before booking_date
+visit_before_booking,bookings,BK-001636,visit_date moved 3 day(s) before booking_date
+non_positive_amount,bookings,BK-000675,amount_aed set to 0
+non_positive_amount,bookings,BK-000769,amount_aed set to -299
+non_positive_amount,bookings,BK-000809,amount_aed set to -1200
+non_positive_amount,bookings,BK-000333,amount_aed set to 0
+non_positive_amount,bookings,BK-001017,amount_aed set to -60
+non_positive_amount,bookings,BK-000616,amount_aed set to 0
+non_positive_amount,bookings,BK-001772,amount_aed set to -1200
+non_positive_amount,bookings,BK-000845,amount_aed set to 0
+non_positive_amount,bookings,BK-000698,amount_aed set to -120
+non_positive_amount,bookings,BK-001350,amount_aed set to 0
+non_positive_amount,bookings,BK-000261,amount_aed set to -299
+non_positive_amount,bookings,BK-001591,amount_aed set to -299
+child_ticket_no_children,bookings,BK-000148,children set to 0 on a child ticket
+child_ticket_no_children,bookings,BK-000162,children set to 0 on a child ticket
+child_ticket_no_children,bookings,BK-001446,children set to 0 on a child ticket
+child_ticket_no_children,bookings,BK-001414,children set to 0 on a child ticket
+child_ticket_no_children,bookings,BK-000463,children set to 0 on a child ticket
+child_ticket_no_children,bookings,BK-001233,children set to 0 on a child ticket
+child_ticket_no_children,bookings,BK-000836,children set to 0 on a child ticket
+child_ticket_no_children,bookings,BK-000520,children set to 0 on a child ticket
+child_ticket_no_children,bookings,BK-000563,children set to 0 on a child ticket
+feedback_unknown_booking,feedback,FB-000623,booking_id BK-904001 does not exist
+feedback_unknown_booking,feedback,FB-000624,booking_id BK-940568 does not exist
+feedback_unknown_booking,feedback,FB-000625,booking_id BK-979526 does not exist
+feedback_unknown_booking,feedback,FB-000626,booking_id BK-985222 does not exist
+feedback_unknown_booking,feedback,FB-000627,booking_id BK-999224 does not exist
+feedback_unknown_booking,feedback,FB-000628,booking_id BK-953409 does not exist
+feedback_unknown_booking,feedback,FB-000629,booking_id BK-991114 does not exist
+feedback_unknown_booking,feedback,FB-000630,booking_id BK-903925 does not exist
+feedback_unknown_booking,feedback,FB-000631,booking_id BK-947019 does not exist
+feedback_unknown_booking,feedback,FB-000632,booking_id BK-986628 does not exist
+feedback_unknown_booking,feedback,FB-000633,booking_id BK-975093 does not exist
+feedback_unknown_booking,feedback,FB-000634,booking_id BK-928395 does not exist
+feedback_unknown_booking,feedback,FB-000635,booking_id BK-912879 does not exist
+feedback_unknown_booking,feedback,FB-000636,booking_id BK-969273 does not exist
+rating_out_of_range,feedback,FB-000486,rating set to 7
+rating_out_of_range,feedback,FB-000431,rating set to 6
+rating_out_of_range,feedback,FB-000359,rating set to 7
+rating_out_of_range,feedback,FB-000267,rating set to 10
+rating_out_of_range,feedback,FB-000330,rating set to -1
+rating_out_of_range,feedback,FB-000519,rating set to 6
+rating_out_of_range,feedback,FB-000108,rating set to 6
+rating_out_of_range,feedback,FB-000614,rating set to -1
+rating_out_of_range,feedback,FB-000464,rating set to 7
+rating_out_of_range,feedback,FB-000378,rating set to -1
+rating_out_of_range,feedback,FB-000038,rating set to 7
+missing_daily_load,daily_loads,2026-09-17,no export file for this day
+duplicate_daily_load,daily_loads,2026-10-08,export file loaded twice (second copy named _rerun)
+partial_daily_load,daily_loads,2026-10-21,export cut off at 30% of the day's rows
