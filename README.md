@@ -163,17 +163,72 @@ Get-ChildItem data\daily_loads\*.csv | ForEach-Object {
 Sandbox note: tables in the sandbox expire after 60 days. Loading files is free and allowed;
 only `INSERT`/`UPDATE`/`DELETE` are blocked.
 
-## Google Sheets and Looker Studio
+## Cloud version: BigQuery, Google Sheets and Looker Studio (Data Studio)
 
-- **Google Sheets:** File → Import → upload `output/report_for_sheets.csv`, or in BigQuery open
-  `rpt_daily_summary` and choose **Export → Explore with Sheets**.
-- **Looker Studio:** Create → Data source → BigQuery → `playful_minds` → pick the `rpt_` views.
+The same pipeline was run in the cloud, end to end:
 
-| | Link | Screenshot |
-|---|---|---|
-| BigQuery dataset | _add link_ | ![BigQuery](docs/screenshots/bigquery.png) |
-| Google Sheets report | _add link_ | ![Google Sheets](docs/screenshots/google_sheets.png) |
-| Looker Studio dashboard | _add link_ | ![Looker Studio](docs/screenshots/looker_studio.png) |
+```
+CSV files → BigQuery (sandbox, dataset playful_minds) → SQL 01–04 → rpt_daily_summary
+          → Google Sheet (analysis) and Looker Studio dashboard (monitoring)
+```
+
+### BigQuery
+
+The raw CSVs were loaded into the free BigQuery sandbox as `raw_bookings`, `raw_waivers`,
+`raw_feedback` and `raw_daily_loads` in the dataset `playful_minds`. Then `sql/01` to `sql/04`
+were run in order. They produced the same results as the local DuckDB run: the missing
+17 Sep load, the 8 Oct load loaded twice, and the clean tables and report views.
+
+**Problem found while loading:** with schema auto-detect turned on, BigQuery read the `signed`
+column in `waivers.csv` (values `yes` / `no`) as `BOOL` instead of text. The SQL compares
+`signed = 'yes'`, which fails on a `BOOL` column. **Fix:** reload `waivers.csv` with the schema
+typed in by hand so `signed` is a `STRING`:
+`waiver_id:STRING, booking_id:STRING, signed_at:TIMESTAMP, signed:STRING`.
+Lesson: set the schema yourself for anything that feeds a report. Auto-detect guesses.
+
+The report view `rpt_daily_summary` (one row per visit day) feeds both the Sheet and the dashboard:
+
+![BigQuery: rpt_daily_summary results](docs/screenshots/bq_daily_summary.png)
+
+### Google Sheets
+
+`rpt_daily_summary` was exported to a Google Sheet, with:
+- **Filters** on every column, and a `weekday` column added from `visit_date`
+- **A summary block** built with formulas:
+  - total visitors: `SUM`
+  - total revenue: `SUM`
+  - average waiver completion: `AVERAGE`
+  - days below the 95% waiver target: `COUNTIF`, e.g. `=COUNTIF(E2:E68,"<95")`
+  - weekend visitors: `SUMIFS` for Sat + Sun
+- **A pivot table** of average visitors and revenue by weekday
+- **A column chart** of average visitors by day of the week
+
+![Google Sheets: data with filters and summary formulas](docs/screenshots/sheets_summary.png)
+
+![Google Sheets: pivot table and chart of average visitors by weekday](docs/screenshots/sheets_busiest_days.png)
+
+### Looker Studio (Data Studio) dashboard
+
+A dashboard connected to the BigQuery report view, with:
+- **3 scorecards:** total visitors, revenue (AED), average waiver completion %
+- **A visitors-per-day** time series
+- **Waiver completion % per day**, with a dashed **95% target** line so bad days stand out
+- **A date range control**, plus **click-to-filter**: clicking a point on one chart filters the others
+
+![Looker Studio dashboard: scorecards and visitors per day](docs/screenshots/dashboard.png)
+
+![Looker Studio dashboard: waiver completion against the 95% target](docs/screenshots/dashboard_waiver_target.png)
+
+Live links: Google Sheet – _add link_ · Dashboard – _add link_
+
+### Cloud findings
+
+- **6,295 visitors** and **AED 610,326 revenue** (clean data only)
+- **97.8% average waiver completion**, with **10 days below the 95% target**.
+  This is the average of the daily rates; across all bookings it is 97.6% (1,704 of 1,746).
+- **Saturday is the busiest day (~122 visitors on average); Friday is the quietest (~79)**
+- **Load problems:** no export arrived for **17 Sep**, and **8 Oct was loaded twice**.
+  Both were caught by `01_load_checks.sql` before reaching any report.
 
 ## Data-quality findings
 
@@ -205,6 +260,9 @@ Every one of these matches `data/injected_errors.csv` exactly: nothing missed, n
 - Waiver completion rate 97.6% – 42 families to follow up with
 - 10:30 is the busiest time slot
 - Price (3.2 / 5) and cafe (3.45 / 5) score lowest; staff (4.48 / 5) score highest
+- Visitor numbers drop sharply from 31 Oct to 6 Nov because the data ends on 30 Oct: those visit
+  dates only include bookings made in advance before then (and no walk-ins), so they are
+  incomplete, not quiet days. They also pull the weekday averages down slightly.
 
 ## Tests
 
