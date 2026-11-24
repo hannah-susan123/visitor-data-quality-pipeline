@@ -181,10 +181,18 @@ were run in order. They produced the same results as the local DuckDB run: the m
 
 **Problem found while loading:** with schema auto-detect turned on, BigQuery read the `signed`
 column in `waivers.csv` (values `yes` / `no`) as `BOOL` instead of text. The SQL compares
-`signed = 'yes'`, which fails on a `BOOL` column. **Fix:** reload `waivers.csv` with the schema
-typed in by hand so `signed` is a `STRING`:
-`waiver_id:STRING, booking_id:STRING, signed_at:TIMESTAMP, signed:STRING`.
-Lesson: set the schema yourself for anything that feeds a report. Auto-detect guesses.
+`signed = 'yes'`, which fails on a `BOOL` column. **Fix:** instead of re-uploading the file,
+the table was rebuilt in BigQuery with SQL that turns the column back into text. It uses only
+`CREATE OR REPLACE TABLE ... AS SELECT`, so it works in the sandbox:
+
+```sql
+CREATE OR REPLACE TABLE playful_minds.raw_waivers AS
+SELECT * REPLACE (CASE WHEN signed THEN 'yes' WHEN NOT signed THEN 'no' END AS signed)
+FROM playful_minds.waivers;
+```
+
+`SELECT * REPLACE (...)` keeps every column as it is, except `signed`, which is swapped for the
+text version. Lesson: check the column types after every load. Auto-detect guesses.
 
 The report view `rpt_daily_summary` (one row per visit day) feeds both the Sheet and the dashboard:
 
@@ -219,7 +227,8 @@ A dashboard connected to the BigQuery report view, with:
 
 ![Looker Studio dashboard: waiver completion against the 95% target](docs/screenshots/dashboard_waiver_target.png)
 
-Live links: Google Sheet – _add link_ · Dashboard – _add link_
+The live Google Sheet and dashboard are in a university Google account, so they are shown here
+as screenshots. A live walkthrough is available on request.
 
 ### Cloud findings
 
